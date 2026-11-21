@@ -1,4 +1,185 @@
-<!doctype html>
-<html>
-  <h1>Hello World! Nice to meet you</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bluehaven Aquarium</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --navy:#082d3b; --blue:#007fa3; --cyan:#73d8df; --foam:#edfafa; --sand:#f1c879; --ink:#102a34; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; font-family:"DM Sans",sans-serif; color:var(--ink); background:#f7fbfb; overflow-x:hidden; }
+    a { color:inherit; text-decoration:none; }
+
+    nav { height:82px; padding:0 6%; display:flex; align-items:center; justify-content:space-between; position:absolute; width:100%; top:0; z-index:20; color:white; }
+    .brand { display:flex; align-items:center; gap:10px; font-family:"Manrope"; font-size:20px; letter-spacing:-.04em; }
+    .brand-mark { width:38px; height:38px; border:1.5px solid rgba(255,255,255,.75); border-radius:50%; display:grid; place-items:center; font-size:19px; }
+    .nav-links { display:flex; gap:32px; align-items:center; font-size:14px; font-weight:600; }
+    .nav-links a { opacity:.9; }
+    .nav-links a:hover { opacity:1; }
+    .ticket-button { background:white; color:var(--navy); padding:13px 20px; border-radius:30px; box-shadow:0 8px 24px rgba(0,0,0,.15); }
+
+    .hero { min-height:720px; position:relative; display:grid; align-items:end; overflow:hidden; background:#063645; }
+    .hero::before { content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(4,43,56,.94) 0%,rgba(4,43,56,.58) 43%,rgba(4,43,56,.06) 70%), url("https://images.unsplash.com/photo-1544550285-f813152fb2fd?auto=format&fit=crop&w=1800&q=90") center/cover; transform:scale(1.02); }
+    .hero::after { content:""; position:absolute; width:620px; height:620px; right:-230px; top:-240px; border-radius:50%; border:90px solid rgba(115,216,223,.09); box-shadow:0 0 0 60px rgba(255,255,255,.025), inset 0 0 70px rgba(115,216,223,.12); }
+    .hero-content { position:relative; z-index:2; max-width:680px; padding:0 6% 100px; color:white; }
+    .eyebrow { display:flex; align-items:center; gap:12px; text-transform:uppercase; letter-spacing:.17em; font-size:11px; font-weight:700; margin-bottom:22px; }
+    .eyebrow::before { content:""; width:38px; height:2px; background:var(--cyan); }
+    h1,h2,h3 { font-family:"Manrope",sans-serif; }
+    h1 { font-size:clamp(68px,8vw,118px); line-height:.82; letter-spacing:-.075em; margin:0 0 28px; }
+    .hero-content p { max-width:480px; font-size:17px; line-height:1.7; color:rgba(255,255,255,.82); margin:0 0 32px; }
+    .hero-actions { display:flex; align-items:center; gap:24px; }
+    .primary { display:inline-flex; height:54px; align-items:center; padding:0 26px; background:var(--cyan); color:var(--navy); border-radius:3px; font-weight:800; box-shadow:0 10px 30px rgba(115,216,223,.22); transition:.25s; }
+    .primary:hover { transform:translateY(-3px); box-shadow:0 16px 38px rgba(115,216,223,.28); }
+    .play-link { display:flex; align-items:center; gap:10px; font-size:14px; font-weight:700; }
+    .play { width:46px; height:46px; border:1px solid rgba(255,255,255,.55); border-radius:50%; display:grid; place-items:center; backdrop-filter:blur(8px); }
+
+    .visitor-bar { min-height:98px; display:grid; grid-template-columns:repeat(3,1fr); background:white; box-shadow:0 -10px 40px rgba(5,45,58,.08); position:relative; z-index:5; }
+    .bar-item { display:flex; align-items:center; justify-content:center; gap:14px; border-right:1px solid #e2ecee; }
+    .bar-item:last-child { border:0; }
+    .bar-icon { width:42px; height:42px; border-radius:50%; background:var(--foam); color:var(--blue); display:grid; place-items:center; font-size:18px; }
+    .bar-item small { display:block; color:#73878d; margin-bottom:3px; }
+    .bar-item strong { font-size:14px; }
+
+    .discover { padding:110px 6%; }
+    .section-head { display:flex; justify-content:space-between; align-items:end; margin-bottom:38px; }
+    .section-head h2 { font-size:clamp(48px,6vw,76px); line-height:.92; letter-spacing:-.06em; margin:0; }
+    .text-link { border-bottom:1px solid var(--ink); padding-bottom:4px; font-size:14px; font-weight:700; }
+    .exhibit-grid { display:grid; grid-template-columns:1.15fr .85fr; grid-template-rows:280px 280px; gap:18px; }
+    .exhibit { position:relative; overflow:hidden; border-radius:8px; color:white; perspective:800px; box-shadow:0 18px 40px rgba(7,67,82,.12); }
+    .exhibit:first-child { grid-row:1/3; }
+    .exhibit img { width:100%; height:100%; object-fit:cover; display:block; transition:.6s cubic-bezier(.2,.7,.2,1); }
+    .exhibit:hover img { transform:scale(1.055) translateZ(20px); }
+    .exhibit::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent 35%,rgba(3,35,45,.78)); }
+    .exhibit-content { position:absolute; z-index:2; left:26px; bottom:24px; }
+    .exhibit-content span { font-size:11px; text-transform:uppercase; letter-spacing:.14em; color:var(--cyan); }
+    .exhibit-content h3 { font-size:26px; margin:7px 0 0; }
+
+    .quote-section { margin:20px 6% 110px; min-height:460px; display:grid; grid-template-columns:44% 56%; border-radius:10px; overflow:hidden; background:var(--foam); box-shadow:0 24px 70px rgba(7,67,82,.10); }
+    .quote-image img { width:100%; height:100%; object-fit:cover; display:block; }
+    .quote-copy { display:flex; flex-direction:column; justify-content:center; padding:60px 10%; }
+    .quote-copy h2 { font-size:clamp(42px,5vw,68px); line-height:.95; letter-spacing:-.06em; margin:10px 0 24px; }
+    .quote-copy p { color:#5c747b; line-height:1.75; max-width:500px; }
+
+    .visit { background:var(--navy); color:white; padding:90px 6%; }
+    .visit-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; }
+    .visit-card { min-height:220px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.09); padding:32px; border-radius:8px; box-shadow:10px 16px 30px rgba(0,0,0,.12); }
+    .visit-card small { color:var(--cyan); text-transform:uppercase; letter-spacing:.13em; }
+    .visit-card h3 { font-size:30px; margin:40px 0 10px; }
+    .visit-card p { color:#abc0c4; line-height:1.6; }
+
+    footer { padding:38px 6%; background:#061f29; color:#a7bdc2; display:flex; justify-content:space-between; align-items:center; font-size:12px; }
+    footer .brand { color:white; }
+
+    @media (max-width:900px) {
+      .nav-links a:not(.ticket-button) { display:none; }
+      .hero { min-height:660px; }
+      .visitor-bar { grid-template-columns:1fr; }
+      .bar-item { min-height:82px; border-right:0; border-bottom:1px solid #e2ecee; }
+      .exhibit-grid { grid-template-columns:1fr; grid-template-rows:420px 260px 260px; }
+      .exhibit:first-child { grid-row:auto; }
+      .quote-section { grid-template-columns:1fr; }
+      .quote-image { height:360px; }
+      .visit-grid { grid-template-columns:1fr; }
+    }
+    @media (max-width:600px) {
+      nav { height:68px; }
+      .brand { font-size:17px; }
+      .ticket-button { padding:11px 14px; }
+      .hero-content { padding:0 7% 70px; }
+      h1 { font-size:58px; }
+      .hero-actions { align-items:flex-start; flex-direction:column; }
+      .discover { padding:75px 5%; }
+      .section-head { align-items:start; }
+      .exhibit-grid { grid-template-rows:360px 230px 230px; }
+      .quote-section { margin:10px 5% 70px; }
+      .quote-copy { padding:42px 28px; }
+      .visit { padding:70px 5%; }
+      footer { flex-direction:column; gap:20px; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="brand" href="#"><span class="brand-mark">◉</span> BLUEHAVEN</a>
+    <div class="nav-links">
+      <a href="#experiences">Experiences</a>
+      <a href="#visit">Plan Visit</a>
+      <a href="#">Events</a>
+      <a class="ticket-button" href="#visit">Buy Tickets</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">Ocean discovery</div>
+        <h1>Dive into<br>the blue.</h1>
+        <p>Step beneath the surface and meet thousands of extraordinary animals in immersive habitats inspired by the world's oceans.</p>
+        <div class="hero-actions">
+          <a class="primary" href="#visit">Plan your visit</a>
+          <a class="play-link" href="#experiences"><span class="play">▶</span> Watch the story</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="visitor-bar">
+      <div class="bar-item"><span class="bar-icon">◷</span><div><small>Open today</small><strong>9:00 AM — 6:00 PM</strong></div></div>
+      <div class="bar-item"><span class="bar-icon">⌖</span><div><small>Location</small><strong>Harbor District</strong></div></div>
+      <div class="bar-item"><span class="bar-icon">♧</span><div><small>Next feeding</small><strong>Jellies · 11:30 AM</strong></div></div>
+    </section>
+
+    <section class="discover" id="experiences">
+      <div class="section-head">
+        <h2>Explore the ocean</h2>
+        <a class="text-link" href="#">View all exhibits</a>
+      </div>
+      <div class="exhibit-grid">
+        <article class="exhibit">
+          <img src="https://images.unsplash.com/photo-1544550285-f813152fb2fd?auto=format&fit=crop&w=1200&q=90" alt="Large underwater aquarium tunnel">
+          <div class="exhibit-content"><span>Signature exhibit</span><h3>Ocean Tunnel</h3></div>
+        </article>
+        <article class="exhibit">
+          <img src="https://images.unsplash.com/photo-1535572281700-5bd6bcdb3bde?auto=format&fit=crop&w=900&q=85" alt="Coral reef and colorful fish">
+          <div class="exhibit-content"><span>Warm reefs</span><h3>Coral Kingdom</h3></div>
+        </article>
+        <article class="exhibit">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=85" alt="Blue ocean water">
+          <div class="exhibit-content"><span>Deep blue</span><h3>Open Ocean</h3></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="quote-section">
+      <div class="quote-image">
+        <img src="https://images.unsplash.com/photo-1551244072-5d12893278ab?auto=format&fit=crop&w=900&q=85" alt="Visitor watching fish">
+      </div>
+      <div class="quote-copy">
+        <div class="eyebrow">Beyond the glass</div>
+        <h2>Wonder comes naturally.</h2>
+        <p>Daily talks, animal encounters, and hands-on programs turn a visit into a deeper connection with the living ocean.</p>
+        <a class="text-link" href="#visit">Discover programs</a>
+      </div>
+    </section>
+
+    <section class="visit" id="visit">
+      <div class="section-head">
+        <h2>Plan your visit</h2>
+      </div>
+      <div class="visit-grid">
+        <article class="visit-card"><small>01 · Admission</small><h3>Tickets</h3><p>Choose a date and time. Adults, children, and family passes are available.</p></article>
+        <article class="visit-card"><small>02 · Getting here</small><h3>Directions</h3><p>Located at Harbor District, with convenient parking and public transit nearby.</p></article>
+        <article class="visit-card"><small>03 · Daily life</small><h3>Today's programs</h3><p>Explore feeding talks, diver presentations, and hands-on marine discovery.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand" href="#"><span class="brand-mark">◉</span> BLUEHAVEN</a>
+    <span>© 2026 Bluehaven Aquarium · Ocean conservation starts with wonder.</span>
+  </footer>
+</body>
 </html>
